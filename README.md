@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portofolio — David Gian Filbert Sinurat
 
-## Getting Started
+Website portofolio satu halaman (Next.js + Tailwind CSS + Framer Motion), dua bahasa (ID/EN).
 
-First, run the development server:
+## Menjalankan
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install      # wajib dijalankan sekali (ada paket font baru)
+npm run dev      # buka http://localhost:3000
+npm run build    # cek sebelum deploy
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Mengubah isi website — cukup edit folder `data/`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Kamu **tidak perlu menyentuh folder `components/`** untuk mengubah isi.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Ingin mengubah…                          | Edit file                     | File gambar/bukti di |
+| ---------------------------------------- | ----------------------------- | -------------------- |
+| Nama, foto, bio, email, CV, media sosial | `data/profile.js`             | `public/profil/`     |
+| Perjalanan (SMA & tiap semester)         | `data/experience.js`          | –                    |
+| Keahlian, framework & tools              | `data/skills.js`              | –                    |
+| Prestasi                                 | `data/achievements.js`        | `public/prestasi/`   |
+| Organisasi & kepanitiaan                 | `data/organizations.js`       | –                    |
+| Proyek                                   | `data/projects.js`            | `public/projects/`   |
+| Teks tombol & judul bagian               | `locales/dictionary.js`       | –                    |
+| Warna tema                               | `tailwind.config.js` (colors) | –                    |
+| Urutan bagian halaman                    | `app/page.js`                 | –                    |
 
-## Learn More
+### Contoh: menambah prestasi baru
 
-To learn more about Next.js, take a look at the following resources:
+1. Simpan bukti ke `public/prestasi/`, misalnya `bukti-21.png` (boleh `.jpg`, `.jpeg`, atau `.pdf`).
+2. Buka `data/achievements.js`, salin blok ini ke dalam daftar `achievements`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```js
+{
+  title: "Juara 1 Lomba Contoh Nasional 2026",
+  level: "Nasional",               // Internasional / Nasional / Wilayah / Institusi / Kampus
+  year: "2026",
+  proof: "/prestasi/bukti-21.png",
+  highlight: true,                 // opsional — bingkai emas "Sorotan"
+  story: "Ceritakan pengalamanmu di lomba ini...",
+},
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Simpan. Jumlah prestasi, tombol filter, dan angka di bagian atas ikut berubah otomatis.
 
-## Deploy on Vercel
+### Naik ke semester 6
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Di `data/experience.js`:
+1. Hapus `current: true` dari blok Semester 5.
+2. Salin blok Semester 5, ubah jadi Semester 6 (judul, cerita, daftar mata kuliah), beri `current: true`.
+3. Ubah `currentSemester = 6`. Bilah kemajuan studi ikut bergeser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Menambah keahlian
+
+Di `data/skills.js`, salin satu baris ke kelompok yang cocok:
+
+```js
+{ name: "TensorFlow", icon: "tensorflow", note: "Melatih model deep learning." },
+```
+
+**Tips**
+- Teks boleh dua bahasa: `story: { id: "…", en: "…" }`. Kalau hanya satu bahasa, tulis teks biasa.
+- Untuk PDF prestasi, tambah `cover: "/prestasi/bukti-21-cover.jpg"` agar kartunya punya gambar sampul.
+- Cari tanda `// TODO` di folder `data/` untuk bagian yang masih perlu kamu lengkapi.
+- Screenshot proyek: simpan di `public/projects/` dengan nama yang sama seperti di `data/projects.js`.
+  Selama gambar belum ada, website memakai sampul bermotif otomatis.
